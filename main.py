@@ -4,7 +4,13 @@
 #
 # A very quick Rouge Like. I'm starting about 4 hours into the 7HRL, and will have to stop before 6 hours in.
 #
-# Created by Jared Dunbar
+# Created by Jared Dunbar'
+
+# haiku -
+
+# mechanization
+# it is what makes the world go
+# watch it burn slowly
 
 # Variables
 
