@@ -46,21 +46,21 @@ def gameLoop():
         fight(0.7)
     elif 'l' in di:
         # left
-        move(0.3)
+        move(0.5)
     elif 'r' in di:
         # right
-        move(0.3)
+        move(0.5)
     elif 'f' in di:
         # forwards
-        move(0.7)
+        move(0.8)
     else:
         gameLoop() # recursive call to the loop to restart the decision process. There was an error parsing the input
 
-def move(fightChance=0.3):
+def move(fightChance=0.5):
     print("\n{}You walk forwards...{}".format(italics, reset))
     time.sleep(1)
     ia = random.random()
-    if ia < 0.05:
+    if ia < 0.2:
         win()
     elif ia < fightChance:
         fight()
@@ -95,10 +95,30 @@ def showLevel():
     pass
 
 def randomAction():
-    return "A rat skitters across the floor, causing you to jump."
+    r = random.random()
+    if r < 0.2:
+        return "a boulder rolls down the hallway, nearly crushing you!"
+    elif r < 0.4:
+        return "a bunch of bats fly from a nearby stairwell!"
+    elif r < 0.6:
+        return "a hawk screeches!"
+    elif r < 0.8:
+        return "a shadow shines on the wall ahead!"
+    else:
+        return "A rat skitters across the floor, causing you to jump."
 
 def badThing():
-    return "a hungry wolf leaps from the dark!"
+    r = random.random()
+    if r < 0.2:
+        return "a snake slithers from a crack in the wall!"
+    elif r < 0.4:
+        return "a venomous bat comes into view!"
+    elif r < 0.6:
+        return "a poison dart gets shot from a hole in the wall!"
+    elif r < 0.8:
+        return "a frightening zombie rises from the floor!"
+    else:
+        return "a hungry wolf leaps from the dark!"
 
 def attack():
     start = time.time()
@@ -107,13 +127,13 @@ def attack():
         keys += str(getch.getch())
     stop = time.time()
     ti = stop-start
-    if ti < 5:
+    if ti > 5:
         return 8
-    elif ti < 3:
+    elif ti > 3:
         return 6
-    elif ti < 2:
+    elif ti > 2:
         return 4
-    elif ti < 1.5:
+    elif ti > 1.5:
         return 2
     else:
         return 0
