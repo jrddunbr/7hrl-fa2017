@@ -12,7 +12,7 @@
 # it is what makes the world go
 # watch it burn slowly
 
-import random, string, time
+import random, string, time, getch
 
 # Variables
 
@@ -57,18 +57,66 @@ def gameLoop():
         gameLoop() # recursive call to the loop to restart the decision process. There was an error parsing the input
 
 def move(fightChance=0.3):
-    win()
+    print("\n{}You walk forwards...{}".format(italics, reset))
+    time.sleep(1)
+    ia = random.random()
+    if ia < 0.05:
+        win()
+    elif ia < fightChance:
+        fight()
+    else:
+        print("{}... and nothing super bad happens. {}{}".format(italics, randomAction(), reset))
+        gameLoop()
     exit(0)
     pass
 
-def fight(difficulty=0.5):
-    pass
+def fight(difficulty=0.4):
+    global hp
+    print ("\n{}A fight breaks out!\n\nSuddenly, {}{}".format(italics, badThing(), reset))
+    print("Press keys on your keyboard to ward off the enemy!")
+    result = attack()
+    hp = hp - result
+    print("You loose {} hearts".format(int(result/2)))
+    if hp < 0:
+        print("\n{}You die in the attack.{}".format(italics, reset))
+        exit(0)
+    else:
+        for heart in range(0, int(hp/2.0)):
+            print(" ♥", end="")
+        if hp%2 != 0:
+            print(".")
+        print("\n{}You live to tell the tale.{}".format(italics, reset))
+        gameLoop()
 
 def win():
     print("\n{}In the room ahead, you notice a dank looking chest in the center of the floor. You place your torch in a wall sconce, and open the chest. Inside it, you find a {}. After you pick up your prize, you look up, and the exit slowly appears in front of you, in the form of a stone block wall sliding out of the way. A well lit hallway leads to a stairwell, and at the top you exit out of a solid steel door.\n\nOutside that door, there are nothing but lush green fields of happiness forevermore...{}".format(italics, lostWords(3), reset))
 
 def showLevel():
     pass
+
+def randomAction():
+    return "A rat skitters across the floor, causing you to jump."
+
+def badThing():
+    return "a hungry wolf leaps from the dark!"
+
+def attack():
+    start = time.time()
+    keys = ""
+    while len(keys) < 30:
+        keys += str(getch.getch())
+    stop = time.time()
+    ti = stop-start
+    if ti < 5:
+        return 8
+    elif ti < 3:
+        return 6
+    elif ti < 2:
+        return 4
+    elif ti < 1.5:
+        return 2
+    else:
+        return 0
 
 def randomWord():
     size = random.SystemRandom().choice([3,4,5,6,7,8])
